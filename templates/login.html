@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+  </head>
+  <body>
+    <h2>Login</h2>
+    {% if error %}
+    <p style="color: red">{{ error }}</p>
+    {% endif %}
+    <form method="post" action="/login">
+      <label>Username</label><br />
+      <input name="username" autocomplete="username" /><br /><br />
+      <label>Password</label><br />
+      <input
+        name="password"
+        type="password"
+        autocomplete="current-password"
+      /><br /><br />
+      <button type="submit">Sign in</button>
+    </form>
+    <hr />
+    <p><small>Demo creds default: admin / password</small></p>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+FROM python:3.12
+
+WORKDIR /app
+
+# Bad: installs extra packages you don't need; no cleanup
+RUN apt-get update && apt-get install -y
+
+# Bad: secrets baked into image/env (demo only)
+ENV DEMO_USER=admin
+ENV DEMO_PASS=password
+ENV APP_SECRET=dev-unsafe-secret-change-me
+ENV ENABLE_DEBUG_ENV=1
+
+# Bad: copies everything without .dockerignore discipline
+COPY . /app
+
+# Bad: dependency install without constraints beyond requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 5000
+
+# Bad: root user + debug server
+CMD ["python", "app.py"]
