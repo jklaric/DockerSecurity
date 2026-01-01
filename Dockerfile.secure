@@ -4,24 +4,21 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     VIRTUAL_ENV=/opt/venv
 
-# Create virtualenv early
+    
 RUN python -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 WORKDIR /app
 
-# Install only what you need (none here), keep image small
-# (If you had build deps, add and remove them in the same layer.)
 
-# Copy dependency list first for better layer caching
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
-# Copy app after deps
+
 COPY app.py /app/app.py
 COPY templates/ /app/templates/
 
-# Create unprivileged user and fix permissions
+
 RUN groupadd -r appuser && useradd -r -g appuser -d /app -s /usr/sbin/nologin appuser \
     && chown -R appuser:appuser /app
 
@@ -29,5 +26,4 @@ USER appuser
 
 EXPOSE 5000
 
-# Production-ish server (no debug)
 CMD ["gunicorn", "-b", "0.0.0.0:5000", "--workers", "2", "--threads", "4", "app:app"]
