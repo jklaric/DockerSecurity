@@ -1,3 +1,5 @@
+# An insecure dockerfile that uses default settings and runs as root
+
 FROM python:3.12
 
 WORKDIR /app

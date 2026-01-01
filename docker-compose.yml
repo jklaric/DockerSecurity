@@ -1,0 +1,25 @@
+# Example of defining and using specific networks to limit inter-container communication, setting containers to read-only mode
+# and managing sensitive data with Docker secrets.
+
+version: "3.9"
+
+services:
+  web:
+    image: web-image
+    networks:
+      - frontend
+    read_only: true
+
+  api:
+    image: api-image
+    networks:
+      - backend
+    read_only: true
+    secrets:
+      - db_password
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
