@@ -3,7 +3,6 @@ from flask import Flask, request, render_template, redirect, url_for, session, a
 
 app = Flask(__name__)
 
-# Demo secret (in real life: set via secret manager / Docker secrets / env at deploy time)
 app.secret_key = os.environ.get("APP_SECRET", "dev-unsafe-secret-change-me")
 
 DEMO_USER = os.environ.get("DEMO_USER", "admin")

@@ -1,4 +1,5 @@
-# Example of defining and using specific networks to limit inter-container communication, setting containers to read-only mode
+# Example of defining and using specific networks to limit
+# inter-container communication, setting containers to read-only mode
 # and managing sensitive data with Docker secrets.
 
 version: "3.9"
