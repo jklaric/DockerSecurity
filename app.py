@@ -46,15 +46,13 @@ def debug_env():
     """
     Intentionally dangerous for demos:
     shows how secrets in env vars can leak if an attacker hits an internal/debug endpoint.
-    In hardened deployments, you would remove this or protect it.
     """
     if os.environ.get("ENABLE_DEBUG_ENV") != "1":
         abort(404)
 
-    # Return only a few keys to keep the demo simple
+   
     keys = ["DEMO_USER", "DEMO_PASS", "APP_SECRET"]
     return {k: os.environ.get(k) for k in keys}
 
 if __name__ == "__main__":
-    # Insecure Dockerfile runs this (debug server)
     app.run(host="0.0.0.0", port=5000, debug=True)
